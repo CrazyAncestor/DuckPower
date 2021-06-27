@@ -7,8 +7,7 @@
 
 #include <MULTI_PLAYER.h>
 Map m;
-initial i;//initial window and music
-int get_mode();
+initial i;//initialize window and music
 
 int main( int argc, char* args[] )
 {
@@ -18,10 +17,9 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-
 			//Main loop flag
 			static bool quit = false;
-            m.Map_ini();
+            m.Map_init();
 			//Event handler
 			SDL_Event e;
             //initialization
@@ -46,37 +44,7 @@ int main( int argc, char* args[] )
 
         //Free resources and close SDL
         i.close();
-        /*//Main loop flag
-			static bool quit = false;
-            m.Map_ini();
-			//Event handler
-			SDL_Event e;
-            //initialization
-            MULTI_PLAYER player;
-
-			//While application is running
-			while( !quit )
-			{
-				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
-					//User requests quit
-					if( e.type == SDL_QUIT )
-					{
-						quit = true;
-					}
-				}int mode=0;
-                    player.play(e,mode);
-                    if(mode==3)quit=true;
-			}
-
-
-        //Free resources and close SDL
-        i.close();*/
 	}
 	return 0;
-}
-int get_mode(){
-    return m.mode;
 }
 

@@ -1,5 +1,5 @@
 CC = g++
-OBJ = main.o BATTLE_SCENE.o BATTLE_SCENE_MULTI.o BATTLE_SETTING.o Change_scene.o define.o initial.o mainmap.o Map.o MULTI_PLAYER.o TUTORIAL.o GO_JUDGER.o BUTTON.o BUTTON_ARRANGE.o BUTTON_ARRANGE_CHA.o BUTTON_ARRANGE_LOOP.o music.o BUTTON_BATTLE.o men_with_arms.o LTexture.o base.o LButton.o
+OBJ = main.o BATTLE_SCENE.o BATTLE_SCENE_MULTI.o BATTLE_SETTING.o Change_scene.o define.o initial.o Selection_Button.o Map.o MULTI_PLAYER.o TUTORIAL.o GO_JUDGER.o BUTTON.o BUTTON_ARRANGE.o BUTTON_ARRANGE_CHA.o BUTTON_ARRANGE_LOOP.o music.o BUTTON_BATTLE.o men_with_arms.o LTexture.o base.o LButton.o
 
 LIB = -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
 CFLAGS  = -Iinclude
@@ -29,7 +29,7 @@ define.o:define.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
 initial.o:initial.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
-mainmap.o:mainmap.cpp
+Selection_Button.o:Selection_Button.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
 Map.o:Map.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<

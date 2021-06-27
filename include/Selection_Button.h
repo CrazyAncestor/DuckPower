@@ -1,6 +1,6 @@
 #define _GLIBCXX_USE_CXX11_ABI 0
-#ifndef MAINMAP_H
-#define MAINMAP_H
+#ifndef SELECTION_BUTTON_H
+#define SELECTION_BUTTON_H
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
@@ -21,12 +21,12 @@ enum sound_enum{
     swipe=1,
 };
 
-class mainmap :public LTexture,public LButton
+class Selection_Button :public LTexture,public LButton
 {
     public:
         //friend class Map;
-        mainmap();
-        virtual ~mainmap();
+        Selection_Button();
+        virtual ~Selection_Button();
         friend class Map;
     protected:
 
@@ -35,11 +35,14 @@ class mainmap :public LTexture,public LButton
         int l_x,l_y,k;
         bool clean =true;
         void set_value(int,int,int);
-        void map_but(SDL_Event &a,int &mode);
-        void menu_but(SDL_Event &a,int &mode);
-        void mapmusic();
+        void map_button_reaction(SDL_Event &a,int &mode);
+        void menu_button_reaction(SDL_Event &a,int &mode);
+
+        void map_button_showup(bool played);
+
+        void load_soundtrack();
 
 
 };
 
-#endif // MAINMAP_H
+#endif // SELECTION_BUTTON_H

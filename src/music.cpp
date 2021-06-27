@@ -15,7 +15,10 @@ music::~music()
 }
 
 void music::playmusic(){
-    if( Mix_PlayingMusic() == 0 ){Mix_PlayMusic( Music, -1 );}//-1 = inf loop ,0=1 times
+    if( Mix_PlayingMusic() == 0 ){
+        
+        Mix_PlayMusic( Music, -1 );
+    }//-1 = inf loop ,0=1 times
     else if( Mix_PausedMusic() == 1 )
     {
         //Resume the music

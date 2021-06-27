@@ -16,7 +16,7 @@ class music
         friend class BUTTON_ARRANGE_LOOP;
 
         friend class Map;
-        friend class mainmap;
+        friend class Selection_Button;
         friend class TUTORIAL;
         friend class BATTLE_SCENE;
         friend class BATTLE_SCENE_MULTI;
