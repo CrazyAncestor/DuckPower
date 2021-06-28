@@ -9,6 +9,26 @@
 Map m;
 initial i;//initialize window and music
 
+void Battle(SDL_Event &e,bool& quit){
+	BATTLE_SCENE *Duck=new BATTLE_SCENE(0);
+	int LEAVE_BATTLE=2;
+	while( !quit && LEAVE_BATTLE!=1)
+	{
+		//Handle events on queue
+		while( SDL_PollEvent( &e ) != 0 )
+		{
+			//User requests quit
+			if( e.type == SDL_QUIT )
+			{
+				quit = true;
+			}
+		}
+		
+        Duck->battle(e,LEAVE_BATTLE);
+		SDL_RenderPresent( gRenderer );
+    	SDL_RenderClear( gRenderer );
+	}
+}
 int main( int argc, char* args[] )
 {
 	if( !i.init() )
@@ -37,8 +57,11 @@ int main( int argc, char* args[] )
 						quit = true;
 					}
 				}
-                    m.Map_mode(e,DUCK,quit);
-					SDL_RenderClear( gRenderer );
+                m.Map_mode(e,DUCK,quit);
+				if(m.Into_Battle){
+					Battle(e,quit);
+					m.Into_Battle=false;
+				}
 			}
 
 

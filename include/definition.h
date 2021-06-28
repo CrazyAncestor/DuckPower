@@ -43,6 +43,7 @@
 #define foe_enhance 50
 #define foe_health_incr 1
 
+#define DEBUG
 
 
 

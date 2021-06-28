@@ -36,7 +36,7 @@ enum music_enum{
 };
 
 
-const string menu_image[menu_num]={
+const string Menu_Button_Image[menu_num]={
         "image/menu/story.png",
         "image/menu/tutorial.png",
         "image/menu/about.png",
@@ -120,8 +120,8 @@ const int Map_Button_x[icon_n]={160,140,300,410,610,800,900,1040,1130,1025,920,6
 const int Map_Button_y[icon_n]={110,220,480,390,420,450,350,300,200,100,150,165,590,0,388};
 const int Menu_Button_x[menu_num]={440,440,440,440,440};
 const int Menu_Button_y[menu_num]={300,400,500,400,500};
-const int iconm[icon_n]={2,2,2,2,2,2,2,2,2,2,2,2,1,0,1};
-const int menum[menu_num]={14,11,12,1,16};
+const int Map_Button_Mode[icon_n]={2,2,2,2,2,2,2,2,2,2,2,2,1,0,1};
+const int Menu_Button_Mode[menu_num]={14,11,12,1,16};
 
 class Map
 {
@@ -130,33 +130,48 @@ class Map
 
         Map();
         virtual ~Map();
-        bool quit;
+        bool quit_game;
         friend class Selection_Button;
         friend int get_mode();
         void Map_init();
-        void Map_mode(SDL_Event &e,BATTLE_SCENE **b,bool &quit);
+        void Map_mode(SDL_Event &e,BATTLE_SCENE **b,bool &quit_game);
+        bool Into_Battle=false;
 
     private:
-        /**********Selection_Button*********/
+        //Background Image (BGI) Object
+        LTexture BGI_object[map_num];
 
-        LTexture _map[map_num];//bigmap
-        Selection_Button Map_Button[icon_n];//mix button and pic
-        /*********menu*******/
+        //Selection Button
+        Selection_Button Map_Button[icon_n];
         Selection_Button Menu_Button[menu_num];
-        Change_scene scene[scene_num];//scrolling background
-        LTexture tutor[tutor_num];
-        Change_scene about[about_num];
-        //Change_scene change[change_num];
-        music bgm[MUSIC];
-        //music s[SOUND1];
+
+        //Scrolling Background
+        Change_scene Scrolling_BG[scene_num];
+        Change_scene Game_Info[about_num];
+
+        //Background Music
+        music BGM[MUSIC];
+
+        //Tutorial Class
         TUTORIAL *tutorial_guide;
 
-        /*********other declaration*******/
-        void load();
+        //Others
+        void Load_BGI();
+        void Load_BGM();
+        void Initialize_Selection_Button(Selection_Button& Button,const int x,const int y,const int mode, string image_filename);
+
+        void Set_BGI();
+        void Set_BGM();
+        void Change_Mode(const int mode_in,const int bgm_name,Change_scene* Scene);
+        void Enter_Battle_Scenario(BATTLE_SCENE **b, const int scenario_num);
+        void Leave_Battle_Scenario(BATTLE_SCENE **b, int& scenario_num,int& last_battle,bool& enforce);
+        void Delete_Battles(bool& enforce,BATTLE_SCENE **b,const int last_battle);
         bool played[12]={0,0,0,0,0,0,0,0,0,0,0,0};
         
+        
         int Scenario_Num=0;
-
+        int Last_Battle=0;
+        bool Enforce_Battle_Deletion=false;
         int mode=13;
 
 

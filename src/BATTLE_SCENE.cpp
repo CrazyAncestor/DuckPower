@@ -10,7 +10,15 @@ BATTLE_SCENE::BATTLE_SCENE(int category)
 
 BATTLE_SCENE::~BATTLE_SCENE()
 {
-    for(int a=0;a<image_num;a++)scene_image[a].free();
+    //for(int a=0;a<image_num;a++)scene_image[a].free();
+#ifdef DEBUG
+    //printf("Hello World");
+#endif
+    /*for(int p=MY_1;p<FOE_6;p++){
+        if(soldier[p]!=NULL)delete soldier[p];
+    }
+    delete soldier;
+    if(exit!=NULL)delete exit;*/
 }
 void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
 
