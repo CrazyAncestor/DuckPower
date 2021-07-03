@@ -135,7 +135,10 @@ class Map
         friend int get_mode();
         void Map_init();
         void Map_mode(SDL_Event &e,BATTLE_SCENE **b,bool &quit_game);
+
         bool Into_Battle=false;
+        
+        int Scenario_Num=0;
 
     private:
         //Background Image (BGI) Object
@@ -158,21 +161,21 @@ class Map
         //Others
         void Load_BGI();
         void Load_BGM();
-        void Initialize_Selection_Button(Selection_Button& Button,const int x,const int y,const int mode, string image_filename);
+        
 
         void Set_BGI();
         void Set_BGM();
-        void Change_Mode(const int mode_in,const int bgm_name,Change_scene* Scene);
-        void Enter_Battle_Scenario(BATTLE_SCENE **b, const int scenario_num);
-        void Leave_Battle_Scenario(BATTLE_SCENE **b, int& scenario_num,int& last_battle,bool& enforce);
-        void Delete_Battles(bool& enforce,BATTLE_SCENE **b,const int last_battle);
+        void Change_Mode(const int mode_in,const int mode_present,const int bgm_name,Change_scene* Scene);
+        void Enter_Battle_Scenario(const int mode_in,BATTLE_SCENE **b, const int scenario_num);
+        void Leave_Battle_Scenario(const bool into_battle,int& mode_in, int& scenario_num);
+        void Back_to_Main_Menu(const int mode_in);
+        
         bool played[12]={0,0,0,0,0,0,0,0,0,0,0,0};
         
         
-        int Scenario_Num=0;
-        int Last_Battle=0;
+        
         bool Enforce_Battle_Deletion=false;
-        int mode=13;
+        int  mode=13;
 
 
 

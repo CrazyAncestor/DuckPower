@@ -23,7 +23,9 @@
 #include <stdlib.h>
 #include<ctime>
 #include "definition.h"
-
+#ifdef DEBUG
+#include<cstdlib>
+#endif
 enum L_texture_name{
 field=0,
 loop_tile=1,
@@ -70,57 +72,12 @@ enum which_step
  SELECT_TARGET=1
 };
 
-
-
-
-class BATTLE_SCENE
-{
-    public:
-        BATTLE_SCENE();
-        BATTLE_SCENE(int category);
-        virtual ~BATTLE_SCENE();
-
-        /***Battle***/
-        void battle(SDL_Event &e,int &mode);
-
-    protected:
-
-
-        LTexture scene_image[image_num];
-
-        //LButton next_turn_button;
-
-        GO_JUDGER battle_judge;
-
-        BUTTON next_turn_button;
-        BUTTON *exit;
-
-        men_with_arms ** soldier;
-
-        base tiles[tiles_num];
-
-        music sound[SOUND];
-
-        clock_t start_time;
-        int clock_on;
-        bool on;
-
-        bool ai_perform;
-        bool end_ai;
-
-
-
-        int turn;
-        int step;
-        bool prev_click_flag;
-        bool now_click_flag;
-        const string sound_name[SOUND]={
-        "music/click2.wav",
-        "music/nc.wav",
-        "music/wan.wav"
-        };
-
-        const std::string field_name[field_num]={/*****order*****/
+const string sound_name_battle_scene[SOUND]={
+    "music/click2.wav",
+    "music/nc.wav",
+    "music/wan.wav"
+};
+const std::string field_name[field_num]={/*****order*****/
         "image/field/field01.png",
         "image/field/field02.png",
         "image/field/field03.png",
@@ -232,6 +189,52 @@ class BATTLE_SCENE
         "image/human/roy.png",
         "image/human/legend.png"
         };
+
+
+class BATTLE_SCENE
+{
+    public:
+        BATTLE_SCENE();
+        BATTLE_SCENE(int category);
+        virtual ~BATTLE_SCENE();
+
+        /***Battle***/
+        void battle(SDL_Event &e,int &mode);
+        void initialize(int category);
+    protected:
+
+
+        LTexture scene_image[image_num];
+
+        //LButton next_turn_button;
+
+        GO_JUDGER battle_judge;
+
+        BUTTON next_turn_button;
+        BUTTON *exit;
+
+        men_with_arms ** soldier;
+
+        base tiles[tiles_num];
+
+        music sound[SOUND];
+
+        clock_t start_time;
+        int clock_on;
+        bool on;
+
+        bool ai_perform;
+        bool end_ai;
+
+
+
+        int turn;
+        int step;
+        bool prev_click_flag;
+        bool now_click_flag;
+
+
+        
         //store property
         int property[character_num][property_num];
         LTexture icons[icon_num];
@@ -250,10 +253,11 @@ class BATTLE_SCENE
 
 
         bool victory_judge(base* a,int sacred);
-        void load();
+        void Load_Image(const int);
+        void Load_Soundtrack();
 
         /*****Initialization****/
-        void initialize(int category);
+        
     private:
 
         /***Secondary Level Function***/

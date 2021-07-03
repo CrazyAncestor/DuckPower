@@ -44,6 +44,19 @@
 #define foe_health_incr 1
 
 #define DEBUG
+//include
+#include <iostream>
+using namespace std;
+const double X_DIS=108.0;
+const double Y_DIS=120.0;
+const double X_INIT=136.0;
+const double Y_INIT=36.0;
+const int X_NEXT=1020;
+const int Y_NEXT=20;
+const int X_UNIT=80;
+const int Y_UNIT=80;
+const int X_ADJ=20;
+const int Y_ADJ=40;
 
 
 

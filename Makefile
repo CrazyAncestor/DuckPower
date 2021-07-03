@@ -1,5 +1,5 @@
 CC = g++
-OBJ = main.o BATTLE_SCENE.o BATTLE_SCENE_MULTI.o BATTLE_SETTING.o Change_scene.o define.o initial.o Selection_Button.o Map.o MULTI_PLAYER.o TUTORIAL.o GO_JUDGER.o BUTTON.o BUTTON_ARRANGE.o BUTTON_ARRANGE_CHA.o BUTTON_ARRANGE_LOOP.o music.o BUTTON_BATTLE.o men_with_arms.o LTexture.o base.o LButton.o
+OBJ = main.o BATTLE_SCENE.o Battle_Scenario.o Soldier.o BATTLE_SCENE_MULTI.o BATTLE_SETTING.o Change_scene.o define.o initial.o Selection_Button.o Map.o MULTI_PLAYER.o TUTORIAL.o GO_JUDGER.o BUTTON.o BUTTON_ARRANGE.o BUTTON_ARRANGE_CHA.o BUTTON_ARRANGE_LOOP.o music.o BUTTON_BATTLE.o men_with_arms.o LTexture.o base.o LButton.o
 
 LIB = -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer
 CFLAGS  = -Iinclude
@@ -18,6 +18,10 @@ main.o:main.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $< 
 
 BATTLE_SCENE.o:BATTLE_SCENE.cpp 
+	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
+Battle_Scenario.o:Battle_Scenario.cpp 
+	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
+Soldier.o:Soldier.cpp 
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<
 BATTLE_SCENE_MULTI.o:BATTLE_SCENE_MULTI.cpp
 	$(CC) $(CFLAGS) $(SDL_FLAG) -c $<

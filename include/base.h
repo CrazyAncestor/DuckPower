@@ -43,7 +43,7 @@ class base
 
         //set soldier_num
         void setsoldier_num(int a);
-
+        int getsoldier_num();
         //set Monte
         void set_Monte(int a);
 

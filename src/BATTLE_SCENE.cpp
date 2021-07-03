@@ -10,26 +10,20 @@ BATTLE_SCENE::BATTLE_SCENE(int category)
 
 BATTLE_SCENE::~BATTLE_SCENE()
 {
-    //for(int a=0;a<image_num;a++)scene_image[a].free();
-#ifdef DEBUG
-    //printf("Hello World");
-#endif
-    /*for(int p=MY_1;p<FOE_6;p++){
-        if(soldier[p]!=NULL)delete soldier[p];
-    }
-    delete soldier;
-    if(exit!=NULL)delete exit;*/
+
 }
 void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
 
             //Handle events on queue
 				now_click_flag = ( e.type == SDL_MOUSEBUTTONDOWN );
+
 				int click=now_click_flag-prev_click_flag;
 				//Clear screen
 
 				/*******visualization*******/
 				//field and tiles
 				create_battlefield();
+
 				//soldiers
 				set_soldiers();
 
@@ -50,6 +44,7 @@ void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
                         if(clock_on==1 and clock()-start_time>=200)mode=1;
                         turn=FROZEN;
                 }
+
                 if(victory_judge(tiles,sacred_left)){
                         scene_image[defeat].render(SCREEN_WIDTH/2-scene_image[defeat].getWidth()/2,SCREEN_HEIGHT/3-scene_image[defeat].getHeight()/2);
                          if(on==0){
@@ -66,14 +61,14 @@ void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
                         if(clock_on==1 and clock()-start_time>=200)mode=1;
                         turn=FROZEN;
                 }
-
+                 
                 static bool start=0;
                 if(turn==MY){
                     //scene_image[next_turn].render(next_turn_button.get_x(),next_turn_button.get_y());
                     clock_t nothing;
                     next_turn_button.render(&e);
                     next_turn_button.handle(turn,FOE,click,nothing,sound[0]);
-
+                 
                     if(start ==0){
                         for(int k=MY_1;k<=MY_6;k++){
                             if(soldier[k]!=NULL){
@@ -83,7 +78,7 @@ void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
                         start=1;
                     }
                     static int sel;
-
+                 
                     if(step==SELECT_UNIT){
                             battle_judge.show_select(tiles,soldier,e,step,sel,click,&sound[0]);
                     }
@@ -92,6 +87,7 @@ void BATTLE_SCENE::battle(SDL_Event &e,int &mode){
 
                     }
                 }
+
                 else if(turn==FOE){
                         static int num=FOE_1;
 
@@ -332,18 +328,20 @@ bool BATTLE_SCENE::victory_judge(base* a,int sacred){
             if(a[sacred].soldier_num!=0)return true;
             else return false;
         }
-void  BATTLE_SCENE::load(){
-        for(int k=0;k<image_num;k++){
-            if(k!=field)scene_image[k].loadFromFile(scene_image_name[k]);
-        }
 
 
-}
-/*****Initialization****/
+//--------------------------------------------------------------------------------
+// Function    : BATTLE_SCENE::initialize
+// Description : Initialize each class member, such as load image picture and give value to the soldiers
+// Note        :
+// Input       : category: the category of this battlefield
+// Output      : None
+//--------------------------------------------------------------------------------
 void BATTLE_SCENE::initialize(int category){
             //load image
-            load();
-            scene_image[field].loadFromFile(field_name[category]);
+            Load_Image(category);
+            //sound
+            for(int i=0;i<SOUND;i++){sound[i].loadsound(sound_name_battle_scene[i]);}
             //property loading
             std::fstream file;
             file.open("property.csv");
@@ -400,7 +398,7 @@ void BATTLE_SCENE::initialize(int category){
                                             ,DUCK_ORI,DUCK_ORI,DUCK_GREEN,DUCK_GREEN,DUCK_RED,DUCK_RED
                                             ,DUCK_ORI,DUCK_ORI,DUCK_ORI,DUCK_ORI,DUCK_ORI,DUCK_ORI};
 
-                    int a[sol_num*3+1]={0,5,7,1,2,10,11,32,34,28,29,37,38,40,40,40,40,40,40};/***********/
+                    int a[sol_num*3+1]={0,5,7,1,2,10,11,32,34,28,29,37,38,39,39,39,39,39,39};/***********/
                     for(int k=0;k<sol_num*3+1;k++){
                             init_pos[k]=a[k];
                             soldier_cha[k]=cha[k];
@@ -467,7 +465,13 @@ void BATTLE_SCENE::initialize(int category){
                     if(soldier[a]!=NULL){
                     soldier[a]->set_id(a);
                     soldier[a]->load("image/none.png","image/none.png","image/bar_bottom.png","image/bar_top.png","image/none.png");
-                    soldier[a]->render(init_pos[a],tiles);
+                    //soldier[a]->render(init_pos[a],tiles);//important
+                    tiles[init_pos[a]].setsoldier_num(a);
+                    cout<<init_pos[a]<<"wait!"<<endl;
+                    cout<<tiles[init_pos[a]].getsoldier_num()<<endl;
+                    
+                    
+                    //tiles[init_pos[a]].setsoldier_num(a);//important
                     soldier[a]->set_property(soldier_cha[a],property[k][arms_property],property[k][health_property]
                                              ,property[k][combat_strength_property],property[k][range_property],property[k][firerange_property]);
                     }
@@ -490,6 +494,16 @@ void BATTLE_SCENE::initialize(int category){
 
             ai_perform=1;
             end_ai=0;
-            //sound
-            for(int i=0;i<SOUND;i++){sound[i].loadsound(sound_name[i]);}
-}
+            
+}//FUNCTION: void BATTLE_SCENE::initialize
+
+void BATTLE_SCENE::Load_Image(const int category){
+    for(int k=0;k<image_num;k++){
+        if(k!=field)scene_image[k].loadFromFile(scene_image_name[k]);
+    }//for(int k=0;k<image_num;k++)
+    scene_image[field].loadFromFile(field_name[category]);
+}//FUNCTION: void BATTLE_SCENE::Load_Image
+
+void BATTLE_SCENE::Load_Soundtrack(){
+    for(int i=0;i<SOUND;i++){sound[i].loadsound(sound_name_battle_scene[i]);}
+}//FUNCTION: void BATTLE_SCENE::Load_Soundtrack

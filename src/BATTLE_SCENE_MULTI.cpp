@@ -128,8 +128,8 @@ void BATTLE_SCENE_MULTI::battle(SDL_Event &e,int &mode){
 }
 void BATTLE_SCENE_MULTI::initialize_var(int cha[12]){
             //load image
-            load();
-            scene_image[field].loadFromFile(field_name[0]);
+            Load_Image(0);
+            
             //property loading
             std::fstream file;
             file.open("property.csv");
@@ -242,5 +242,5 @@ void BATTLE_SCENE_MULTI::initialize_var(int cha[12]){
             ai_perform=1;
             end_ai=0;
             //sound
-            for(int i=0;i<SOUND;i++){sound[i].loadsound(sound_name[i]);}
+            for(int i=0;i<SOUND;i++){sound[i].loadsound(sound_name_battle_scene[i]);}
 }
